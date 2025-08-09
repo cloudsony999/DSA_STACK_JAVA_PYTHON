@@ -1,0 +1,23 @@
+declare
+a number;
+b number;
+c number;
+tomojit exception;
+pragma exception_init(tomojit,-20000);
+begin
+a:=&t;
+b:=&q;
+c:=a+b;
+if (c<100) then
+raise tomojit;
+--raise_application_error(-20000,'sum is < 100');
+else
+dbms_output.put_line('the sum is '||c);
+end if;
+exception
+when tomojit then
+dbms_output.put_line(SQLCODE || '  '||SQLERRM);
+when others then
+dbms_output.put_line(SQLCODE || '  '||SQLERRM);
+end;
+/
